@@ -60,6 +60,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.3.5)
     multi_json (1.10.1)
+    nprogress-rails (0.1.3.0)
     pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
@@ -126,6 +127,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  nprogress-rails
   pg
   rails (= 4.1.0)
   sass-rails (~> 4.0.3)

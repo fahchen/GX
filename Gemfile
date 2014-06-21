@@ -11,6 +11,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-turbolinks'
 gem 'font-awesome-rails'
+gem 'nprogress-rails'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
