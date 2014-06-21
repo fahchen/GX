@@ -22,8 +22,11 @@ require.config({
 });
 
 require([ 'handlebars', 'jquery', 'models',
-					'text!views/destination-list.hbs'
-], function (Handlebars, $, models, destination_list_t) {
+					'text!views/destination-list.hbs',
+					'text!views/tour-list.hbs',
+					'text!views/tour-details.hbs'
+], function (Handlebars, $, models,
+						 destination_list_t, tour_list_t, tour_details_t) {
     "use strict";
 
 		var destinations = new models.Destinations();
@@ -41,11 +44,24 @@ require([ 'handlebars', 'jquery', 'models',
 				return out + "</ul>";
 		});
 
-    var compiled_list_template = Handlebars.compile(destination_list_t);
-    var rendered_list_template = compiled_list_template({
+    var compiled_template;
+    var rendered_template;
+
+		compiled_template = Handlebars.compile(destination_list_t);
+		rendered_template = compiled_template({
 				destinations: [{id: 0, name: "成都"}]
 		});
-    $('#list-template').html(rendered_list_template);
+    $('#destination-list').html(rendered_template);
+
+		compiled_template = Handlebars.compile(tour_list_t);
+		rendered_template = compiled_template({
+		});
+    $('#tour-list').html(rendered_template);
+
+		compiled_template = Handlebars.compile(tour_details_t);
+		rendered_template = compiled_template({
+		});
+    $('#tour-detail').html(rendered_template);
 
 
 });
