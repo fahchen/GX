@@ -6,10 +6,14 @@ require.config({
         'underscore': 'bower_components/lodash/dist/lodash.underscore',
         'backbone': 'bower_components/backbone/backbone',
         'lodash': 'bower_components/lodash/dist/lodash.min',
+        'when': 'bower_components/when',
         'text': 'vendor/text',
 
 				'models': 'js/models'
     },
+    packages: [
+        {name: 'when', path: 'bower_components/when', main: 'when'}
+    ],
     shim: {
         'backbone': {
             deps: ['underscore'],
@@ -21,19 +25,24 @@ require.config({
     }
 });
 
-require([ 'handlebars', 'jquery', 'models', 'lodash',
+require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 					'text!views/destination-list.hbs',
 					'text!views/tour-list.hbs',
 					'text!views/tour-details.hbs'
-				], function (Handlebars, $, models, _,
+], function (Handlebars, $, models, _, when,
 						 destination_list_t, tour_list_t, tour_details_t) {
     "use strict";
 
 		var destinations = new models.Destinations();
-		destinations.fetch({
-				success: function () { console.log("fetch success"); },
-        error: function () { console.log("fetch error"); }
-		});
+
+    function get_destinations() {
+        var p = when.defer();
+		    destinations.fetch({
+            success: function () { p.resolve(); },
+            error: function () { p.reject(); }
+		    });
+        return p.promise;
+    }
 
 
 		Handlebars.registerHelper('list', function(items, options) {
@@ -59,11 +68,15 @@ require([ 'handlebars', 'jquery', 'models', 'lodash',
     var compiled_template;
     var rendered_template;
 
-		compiled_template = Handlebars.compile(destination_list_t);
-		rendered_template = compiled_template({
-				destinations: [{id: 0, name: "成都"}]
-		});
-    $('#destination-list').html(rendered_template);
+    get_destinations().then(function () {
+        var destinations_list_json = destinations.map(function (d) {
+            return d.make_list_json(); });
+		    compiled_template = Handlebars.compile(destination_list_t);
+		    rendered_template = compiled_template({
+				    destinations: destinations_list_json
+		    });
+        $('#destination-list').html(rendered_template);
+    });
 
 		compiled_template = Handlebars.compile(tour_list_t);
 		rendered_template = compiled_template({
