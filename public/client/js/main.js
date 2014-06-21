@@ -44,6 +44,17 @@ require([ 'handlebars', 'jquery', 'models',
 				return out + "</ul>";
 		});
 
+		Handlebars.registerHelper('tourlist', function(items, options) {
+				var out = "";
+				for(var i=0, l=items.length; i<l; i++) {
+						out = [out,
+									 '<div class="tour-list-item">',
+									 options.fn(items[i]),
+									 '</div>'].join('');
+				}
+				return out;
+		});
+
     var compiled_template;
     var rendered_template;
 
@@ -55,6 +66,7 @@ require([ 'handlebars', 'jquery', 'models',
 
 		compiled_template = Handlebars.compile(tour_list_t);
 		rendered_template = compiled_template({
+				tours: [{id: 0, name: "窄巷"}]
 		});
     $('#tour-list').html(rendered_template);
 
