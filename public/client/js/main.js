@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: '',
+    baseUrl: 'client',
     paths: {
         'handlebars': 'bower_components/handlebars/handlebars',
         'jquery': 'bower_components/jquery/dist/jquery.min'
