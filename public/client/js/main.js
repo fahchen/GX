@@ -66,12 +66,17 @@ require([ 'handlebars', 'jquery', 'models',
 
 		compiled_template = Handlebars.compile(tour_list_t);
 		rendered_template = compiled_template({
-				tours: [{id: 0, name: "窄巷"}]
+				tours: [{id: 0, name: "都江堰"}]
 		});
     $('#tour-list').html(rendered_template);
 
 		compiled_template = Handlebars.compile(tour_details_t);
 		rendered_template = compiled_template({
+				name: "都江堰",
+				days: [ {num: 1, description: "see the river"},
+								{num: 2, description: "see the mountain"}],
+				hometown: "成都",
+				introduction: "hey there."
 		});
     $('#tour-detail').html(rendered_template);
 
