@@ -21,11 +21,11 @@ require.config({
     }
 });
 
-require([ 'handlebars', 'jquery', 'models',
+require([ 'handlebars', 'jquery', 'models', 'lodash',
 					'text!views/destination-list.hbs',
 					'text!views/tour-list.hbs',
 					'text!views/tour-details.hbs'
-], function (Handlebars, $, models,
+				], function (Handlebars, $, models, _,
 						 destination_list_t, tour_list_t, tour_details_t) {
     "use strict";
 
@@ -39,6 +39,7 @@ require([ 'handlebars', 'jquery', 'models',
 		Handlebars.registerHelper('list', function(items, options) {
 				var out = "<ul>";
 				for(var i=0, l=items.length; i<l; i++) {
+						_.extend(items[i], {num: i + 1});
 						out = out + "<li>" + options.fn(items[i]) + "</li>";
 				}
 				return out + "</ul>";
@@ -73,8 +74,8 @@ require([ 'handlebars', 'jquery', 'models',
 		compiled_template = Handlebars.compile(tour_details_t);
 		rendered_template = compiled_template({
 				name: "都江堰",
-				days: [ {num: 1, description: "see the river"},
-								{num: 2, description: "see the mountain"}],
+				days: [ {description: "see the river"},
+								{description: "see the mountain"}],
 				hometown: "成都",
 				introduction: "hey there."
 		});
