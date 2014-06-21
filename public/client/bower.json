@@ -1,0 +1,25 @@
+{
+		"name": "GX",
+		"version": "0.0.0",
+		"homepage": "https://github.com/fahchen/GX.git",
+		"authors": [
+		],
+		"private": true,
+		"ignore": [
+				"**/.*",
+				"node_modules",
+				"bower_components",
+				"test",
+				"tests"
+		],
+		"dependencies": {
+				"requirejs": null,
+				"requirejs-domready": "2.0.1",
+				"jquery": null,
+				"backbone": null,
+				"lodash": null,
+				"superagent": "0.18.0",
+				"when": "3.1.0",
+				"handlebars": "1.3.0"
+		}
+}
