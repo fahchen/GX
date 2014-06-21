@@ -86,6 +86,7 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
             id: 0,
             name: "都江堰",
             price: "$200",
+						img_url: 'img/dujiangyan.jpg'
         }]
 		});
     $('#tour-list').html(rendered_template);
@@ -96,7 +97,9 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 				days: [ {description: "see the river"},
 								{description: "see the mountain"}],
 				hometown: "成都",
-				introduction: "hey there."
+				introduction: "hey there.",
+				img_url_guide: 'img/kool-aid-man.jpg',
+				img_url_destination: 'img/dujiangyan.jpg'
 		});
     $('#tour-detail').html(rendered_template);
 
