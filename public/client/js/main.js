@@ -26,6 +26,13 @@ require([ 'handlebars', 'jquery', 'models',
 ], function (Handlebars, $, models, destination_list_t) {
     "use strict";
 
+		var destinations = new models.Destinations();
+		destinations.fetch({
+				success: function () { console.log("fetch success"); },
+        error: function () { console.log("fetch error"); }
+		});
+
+
 		Handlebars.registerHelper('list', function(items, options) {
 				var out = "<ul>";
 				for(var i=0, l=items.length; i<l; i++) {

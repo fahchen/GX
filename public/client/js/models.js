@@ -3,8 +3,10 @@ define([
 ], function (Backbone, _) {
     "use strict";
 
+		var api_root = "api/"
+
 		var Destination = Backbone.Model.extend({
-        urlRoot: '',
+        urlRoot: api_root + 'destination',
 
         constructor: function () { // (attrs, options)
             Backbone.Model.apply(this, arguments);
@@ -24,7 +26,7 @@ define([
 
 		var Destinations =  Backbone.Collection.extend({
 				model: Destination,
-        url: ''
+        url: api_root + 'destinations'
 		});
 
 		var Tour = Backbone.Model.extend({
