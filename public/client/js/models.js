@@ -34,6 +34,13 @@ define([
 
         constructor: function () { // (attrs, options)
             Backbone.Model.apply(this, arguments);
+        },
+
+        make_list_json: function () {
+            // todo XXX
+            return {
+                id: self.id,
+            };
         }
 		});
 

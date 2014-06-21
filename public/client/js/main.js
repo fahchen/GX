@@ -68,6 +68,8 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     var compiled_template;
     var rendered_template;
 
+    console.log(tour_details_t);
+
     get_destinations().then(function () {
         var destinations_list_json = destinations.map(function (d) {
             return d.make_list_json(); });
@@ -80,7 +82,11 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 
 		compiled_template = Handlebars.compile(tour_list_t);
 		rendered_template = compiled_template({
-				tours: [{id: 0, name: "都江堰"}]
+				tours: [{
+            id: 0,
+            name: "都江堰",
+            price: "$200",
+        }]
 		});
     $('#tour-list').html(rendered_template);
 
