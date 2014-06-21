@@ -3,7 +3,7 @@ define([
 ], function (Backbone, _) {
     "use strict";
 
-		var api_root = "api/"
+		var api_root = "/"
 
 		var Destination = Backbone.Model.extend({
         urlRoot: api_root + 'destination',
