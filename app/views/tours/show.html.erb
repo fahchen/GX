@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>Guide:</strong>
+  <%= @tour.guide.try(:name) %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @tour.name %>
 </p>
@@ -13,16 +18,6 @@
 <p>
   <strong>Price:</strong>
   <%= @tour.price %>
-</p>
-
-<p>
-  <strong>Hometown:</strong>
-  <%= @tour.hometown %>
-</p>
-
-<p>
-  <strong>Introduction:</strong>
-  <%= @tour.introduction %>
 </p>
 
 <p>

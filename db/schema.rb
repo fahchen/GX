@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622035432) do
+ActiveRecord::Schema.define(version: 20140622052758) do
 
   create_table "days", force: true do |t|
     t.text     "description"
@@ -27,15 +27,25 @@ ActiveRecord::Schema.define(version: 20140622035432) do
     t.string   "image"
   end
 
-  create_table "tours", force: true do |t|
+  create_table "guides", force: true do |t|
     t.string   "name"
     t.string   "hometown"
     t.text     "introduction"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tours", force: true do |t|
+    t.string   "name"
     t.string   "image"
     t.integer  "destination_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "price"
+    t.integer  "guide_id"
   end
+
+  add_index "tours", ["guide_id"], name: "index_tours_on_guide_id"
 
 end
