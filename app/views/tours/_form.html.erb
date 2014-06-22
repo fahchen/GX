@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="form-group">
+    <%= f.label :guide %><br>
+    <%= f.select :guide_id, Guide.all.collect { |p| [ p.name, p.id ] }, include_blank: true, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :destination %><br>
     <%= f.select :destination_id, Destination.all.collect { |p| [ p.name, p.id ] }, include_blank: true, class: "form-control" %>
   </div>

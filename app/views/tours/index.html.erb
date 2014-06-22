@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Destination</th>
+      <th>Guide</th>
       <th>Name</th>
       <th>Price</th>
       <th>Image</th>
@@ -15,6 +16,7 @@
     <% @tours.each do |tour| %>
       <tr>
         <td><%= tour.destination.try(:name) %></td>
+        <td><%= tour.guide.try(:name) %></td>
         <td><%= tour.name %></td>
         <td><%= tour.price %></td>
         <td><%= image_tag tour.image %></td>

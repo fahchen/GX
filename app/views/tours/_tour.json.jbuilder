@@ -9,3 +9,11 @@ json.days do
   json.array! tour.days, partial: 'days/day', as: :day
 end
 
+json.guide do
+  if tour.guide
+    json.partial! 'guides/guide', guide: tour.guide
+  else
+    json.null!
+  end
+end
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622052339) do
+ActiveRecord::Schema.define(version: 20140622052758) do
 
   create_table "days", force: true do |t|
     t.text     "description"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20140622052339) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "price"
+    t.integer  "guide_id"
   end
+
+  add_index "tours", ["guide_id"], name: "index_tours_on_guide_id"
 
 end
