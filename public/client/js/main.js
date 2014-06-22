@@ -65,15 +65,6 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     var compiled_template;
     var rendered_template;
 
-    var register_nav_callbacks = function () {
-
-        // $('.navigation').click(function () {
-        //    console.log("registered navigation click callbacks");
-        //    render();
-        // });
-
-    }
-
     function get_frontend_path() {
         return window.location.href.split('#')[1];
     }
@@ -96,7 +87,6 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
             }).then(function () {
                 $('#tour-list').html("");
                 $('#tour-detail').html("");
-                register_nav_callbacks();
             });
         } else {
             get_tours().then(function () {
@@ -116,7 +106,6 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
                 return;
             }).then(function () {
                 $('#destination-list').html("");
-                register_nav_callbacks();
             });
         }
     }
