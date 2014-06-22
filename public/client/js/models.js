@@ -3,9 +3,9 @@ define([
 ], function (Backbone, _) {
     "use strict";
 
-		var api_root = "/"
+    var api_root = "/"
 
-		var Destination = Backbone.Model.extend({
+    var Destination = Backbone.Model.extend({
         urlRoot: api_root + 'destination',
 
         constructor: function () { // (attrs, options)
@@ -15,21 +15,21 @@ define([
         validate: function (attrs) {
         },
 
-				make_list_json: function () {
-						var self = this;
-						return {
-								id: self.id,
-								name: self.get('name')
-						};
-				}
-		});
+        make_list_json: function () {
+            var self = this;
+            return {
+                id: self.id,
+                name: self.get('name')
+            };
+        }
+    });
 
-		var Destinations =  Backbone.Collection.extend({
-				model: Destination,
+    var Destinations =  Backbone.Collection.extend({
+        model: Destination,
         url: api_root + 'destinations'
-		});
+    });
 
-		var Tour = Backbone.Model.extend({
+    var Tour = Backbone.Model.extend({
         urlRoot: '',
 
         constructor: function () { // (attrs, options)
@@ -38,10 +38,10 @@ define([
 
         make_list_json: function () {
             return {
-								id: 0,
-								name: "都江堰",
-								price: "$200",
-								img_url: 'img/dujiangyan.jpg'
+                id: 0,
+                name: "都江堰",
+                price: "$200",
+                img_url: 'img/dujiangyan.jpg'
             };
         },
 
@@ -56,19 +56,19 @@ define([
                 img_url_destination: 'img/dujiangyan.jpg'
             };
         }
-		});
+    });
 
-		var Tours =  Backbone.Collection.extend({
-				model: Tour,
+    var Tours =  Backbone.Collection.extend({
+        model: Tour,
         url: ''
-		});
+    });
 
 
-		return {
-				Destination: Destination,
-				Destinations: Destinations,
-				Tour: Tour,
-				Tours: Tours
-		};
+    return {
+        Destination: Destination,
+        Destinations: Destinations,
+        Tour: Tour,
+        Tours: Tours
+    };
 
 });
