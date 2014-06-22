@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622035432) do
+ActiveRecord::Schema.define(version: 20140622050648) do
 
   create_table "days", force: true do |t|
     t.text     "description"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20140622035432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+  end
+
+  create_table "guides", force: true do |t|
+    t.string   "name"
+    t.string   "hometown"
+    t.text     "introduction"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tours", force: true do |t|
