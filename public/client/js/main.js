@@ -52,7 +52,14 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 
     function get_tours() {
         var p = when.defer();
+
         tours.add(new models.Tour());
+
+        // tours.fetch({
+        //     success: function () { p.resolve(); },
+        //     error: function () { p.reject(); }
+        // });
+
         p.resolve();
         return p.promise;
     }
@@ -106,6 +113,7 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
             });
         } else {
             get_tours().then(function () {
+                debugger;
                 var tours_list_json = tours.map(function (tour) {
                     return tour.make_list_json(); });
                 compiled_template = Handlebars.compile(tour_list_t);

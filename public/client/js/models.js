@@ -30,13 +30,14 @@ define([
     });
 
     var Tour = Backbone.Model.extend({
-        urlRoot: '',
+        urlRoot: api_root + 'tour',
 
         constructor: function () { // (attrs, options)
             Backbone.Model.apply(this, arguments);
         },
 
         make_list_json: function () {
+            debugger;
             return {
                 id: 0,
                 name: "都江堰",
@@ -60,7 +61,7 @@ define([
 
     var Tours =  Backbone.Collection.extend({
         model: Tour,
-        url: ''
+        url: api_root + 'tours'
     });
 
 
