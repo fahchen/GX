@@ -37,9 +37,23 @@ define([
         },
 
         make_list_json: function () {
-            // todo XXX
             return {
-                id: self.id,
+								id: 0,
+								name: "都江堰",
+								price: "$200",
+								img_url: 'img/dujiangyan.jpg'
+            };
+        },
+
+        make_detail_json: function () {
+            return {
+                name: "都江堰",
+                days: [ {description: "see the river"},
+                        {description: "see the mountain"}],
+                hometown: "成都",
+                introduction: "hey there.",
+                img_url_guide: 'img/kool-aid-man.jpg',
+                img_url_destination: 'img/dujiangyan.jpg'
             };
         }
 		});

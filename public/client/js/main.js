@@ -30,12 +30,13 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
           'text!views/destination-list.hbs',
           'text!views/tour-list.hbs',
           'text!views/tour-details.hbs',
-					'domReady!'
+          'domReady!'
 ], function (Handlebars, $, models, _, when,
              destination_list_t, tour_list_t, tour_details_t) {
     "use strict";
 
     var destinations = new models.Destinations();
+    var tours = new models.Tours();
 
     function get_destinations() {
         var p = when.defer();
@@ -43,6 +44,13 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
             success: function () { p.resolve(); },
             error: function () { p.reject(); }
         });
+        return p.promise;
+    }
+
+    function get_tours() {
+        var p = when.defer();
+        tours.add(new models.Tour());
+        p.resolve();
         return p.promise;
     }
 
@@ -70,77 +78,71 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     var compiled_template;
     var rendered_template;
 
-		var register_nav_callbacks = function () {
+    var register_nav_callbacks = function () {
 
-				// $('.navigation').click(function () {
-				// 		console.log("registered navigation click callbacks");
-				// 		render();
-				// });
+        // $('.navigation').click(function () {
+        //    console.log("registered navigation click callbacks");
+        //    render();
+        // });
 
-		}
+    }
 
-		function get_frontend_path() {
-				return window.location.href.split('#')[1];
-		}
+    function get_frontend_path() {
+        return window.location.href.split('#')[1];
+    }
 
     var frontend_path = get_frontend_path();
 
-		var render = function () {
+    var render = function () {
 
-				if (frontend_path === undefined || frontend_path == '') {
+        if (frontend_path === undefined || frontend_path == '') {
 
-						get_destinations().then(function () {
-								var destinations_list_json = destinations.map(function (d) {
-										return d.make_list_json(); });
-								compiled_template = Handlebars.compile(destination_list_t);
-								rendered_template = compiled_template({
-										destinations: destinations_list_json
-								});
-								$('#destination-list').html(rendered_template);
+            get_destinations().then(function () {
+                var destinations_list_json = destinations.map(function (d) {
+                    return d.make_list_json(); });
+                compiled_template = Handlebars.compile(destination_list_t);
+                rendered_template = compiled_template({
+                    destinations: destinations_list_json
+                });
+                $('#destination-list').html(rendered_template);
+                return;
+            }).then(function () {
+                $('#tour-list').html("");
+                $('#tour-detail').html("");
+                register_nav_callbacks();
+            });
+        } else {
+            get_tours().then(function () {
+                var tours_list_json = tours.map(function (tour) {
+                    return tour.make_list_json(); });
+                compiled_template = Handlebars.compile(tour_list_t);
+                rendered_template = compiled_template({
+                    tours: tours_list_json
+                });
+                $('#tour-list').html(rendered_template);
+                return;
+            }).then(function () {
+                var tour_detail_json = tours.models[0].make_detail_json();
+                compiled_template = Handlebars.compile(tour_details_t);
+                rendered_template = compiled_template(tour_detail_json);
+                $('#tour-detail').html(rendered_template);
+                return;
+            }).then(function () {
+                $('#destination-list').html("");
+                register_nav_callbacks();
+            });
+        }
+    }
 
-								$('#tour-list').html("");
-								$('#tour-detail').html("");
-								register_nav_callbacks();
-						});
-				} else {
+    render();
 
-						compiled_template = Handlebars.compile(tour_list_t);
-						rendered_template = compiled_template({
-								tours: [{
-										id: 0,
-										name: "都江堰",
-										price: "$200",
-										img_url: 'img/dujiangyan.jpg'
-								}]
-						});
-						$('#tour-list').html(rendered_template);
-
-						compiled_template = Handlebars.compile(tour_details_t);
-						rendered_template = compiled_template({
-								name: "都江堰",
-								days: [ {description: "see the river"},
-												{description: "see the mountain"}],
-								hometown: "成都",
-								introduction: "hey there.",
-								img_url_guide: 'img/kool-aid-man.jpg',
-								img_url_destination: 'img/dujiangyan.jpg'
-						});
-						$('#tour-detail').html(rendered_template);
-
-						$('#destination-list').html("");
-						register_nav_callbacks();
-				}
-		}
-
-		render();
-
-		window.setInterval(function () {
-				var new_frontend_path = get_frontend_path();
-				if (frontend_path !== new_frontend_path) {
-						frontend_path = new_frontend_path;
-						render();
-				}
-		}, 100); // apparently used by Google
+    window.setInterval(function () {
+        var new_frontend_path = get_frontend_path();
+        if (frontend_path !== new_frontend_path) {
+            frontend_path = new_frontend_path;
+            render();
+        }
+    }, 100); // apparently used by Google
 // http://stackoverflow.com/questions/2161906/handle-url-anchor-change-event-in-js
 
 });
