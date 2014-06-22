@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622025805) do
+ActiveRecord::Schema.define(version: 20140622032921) do
+
+  create_table "days", force: true do |t|
+    t.text     "description"
+    t.integer  "tour_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "destinations", force: true do |t|
     t.string   "name"
