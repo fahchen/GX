@@ -130,7 +130,8 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 
     window.setInterval(function () {
         var new_frontend_path = get_frontend_path();
-        if (frontend_path !== new_frontend_path) {
+        if (frontend_path.view !== new_frontend_path.view &&
+            frontend_path.id !== new_frontend_path.id) {
             frontend_path = new_frontend_path;
             render();
         }
