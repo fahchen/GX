@@ -8,13 +8,6 @@ define([
     var Destination = Backbone.Model.extend({
         urlRoot: api_root + 'destination',
 
-        constructor: function () { // (attrs, options)
-            Backbone.Model.apply(this, arguments);
-        },
-
-        validate: function (attrs) {
-        },
-
         make_list_json: function () {
             var self = this;
             return {
@@ -32,29 +25,25 @@ define([
     var Tour = Backbone.Model.extend({
         urlRoot: api_root + 'tour',
 
-        constructor: function () { // (attrs, options)
-            Backbone.Model.apply(this, arguments);
-        },
-
         make_list_json: function () {
-            debugger;
             return {
-                id: 0,
-                name: "都江堰",
-                price: "$200",
-                img_url: 'img/dujiangyan.jpg'
+                id: this.id,
+                name: this.get('name'),
+                price: "$" + this.get('price'),
+                img_url: this.get('image_url'),
             };
         },
 
         make_detail_json: function () {
             return {
-                name: "都江堰",
-                days: [ {description: "see the river"},
-                        {description: "see the mountain"}],
-                hometown: "成都",
-                introduction: "hey there.",
-                img_url_guide: 'img/kool-aid-man.jpg',
-                img_url_destination: 'img/dujiangyan.jpg'
+                name: this.get('name'),
+                days: _.map(this.get('days'), function(day) {
+                    return {description: day.description};
+                }),
+                hometown: this.get('guide').hometown,
+                introduction: this.get('guide').introduction,
+                img_url_guide: this.get('guide').image_url,
+                img_url_destination: this.get('image_url')
             };
         }
     });

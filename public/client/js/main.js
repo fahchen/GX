@@ -52,21 +52,14 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 
     function get_tours() {
         var p = when.defer();
-
-        tours.add(new models.Tour());
-
-        // tours.fetch({
-        //     success: function () { p.resolve(); },
-        //     error: function () { p.reject(); }
-        // });
-
-        p.resolve();
+        tours.fetch({
+            success: function () { p.resolve(); },
+            error: function () { p.reject(); }
+        });
         return p.promise;
     }
 
-
     Handlebars.registerHelper('list', handlebar_helpers.list);
-
     Handlebars.registerHelper('tourlist', handlebar_helpers.tourlist);
 
     var compiled_template;
@@ -98,52 +91,53 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     var render = function () {
 
         if (frontend_path.view === 'destinations') {
-            get_destinations().then(function () {
-                var destinations_list_json = destinations.map(function (d) {
-                    return d.make_list_json(); });
-                compiled_template = Handlebars.compile(destination_list_t);
-                rendered_template = compiled_template({
-                    destinations: destinations_list_json
-                });
-                $('#destination-list').html(rendered_template);
-                return;
-            }).then(function () {
-                $('#tour-list').html("");
-                $('#tour-detail').html("");
+
+            var destinations_list_json = destinations.map(function (d) {
+                return d.make_list_json(); });
+            compiled_template = Handlebars.compile(destination_list_t);
+            rendered_template = compiled_template({
+                destinations: destinations_list_json
             });
+            $('#destination-list').html(rendered_template);
+
+            $('#tour-list').html("");
+            $('#tour-detail').html("");
         } else {
-            get_tours().then(function () {
-                debugger;
-                var tours_list_json = tours.map(function (tour) {
-                    return tour.make_list_json(); });
-                compiled_template = Handlebars.compile(tour_list_t);
-                rendered_template = compiled_template({
-                    tours: tours_list_json
-                });
-                $('#tour-list').html(rendered_template);
-                return;
-            }).then(function () {
-                var tour_detail_json = tours.models[0].make_detail_json();
-                compiled_template = Handlebars.compile(tour_details_t);
-                rendered_template = compiled_template(tour_detail_json);
-                $('#tour-detail').html(rendered_template);
-                return;
-            }).then(function () {
-                $('#destination-list').html("");
+
+            var tours_list_json = tours.map(function (tour) {
+                return tour.make_list_json(); });
+            compiled_template = Handlebars.compile(tour_list_t);
+            rendered_template = compiled_template({
+                tours: tours_list_json
             });
+            $('#tour-list').html(rendered_template);
+
+            var tour_detail_json = tours.models[0].make_detail_json();
+            compiled_template = Handlebars.compile(tour_details_t);
+            rendered_template = compiled_template(tour_detail_json);
+            $('#tour-detail').html(rendered_template);
+
+            $('#destination-list').html("");
         }
     }
 
-    render();
+    get_tours().then(function () {
+        return get_destinations();
+    }).then(function () {
 
-    window.setInterval(function () {
-        var new_frontend_path = get_frontend_path();
-        if (frontend_path.view !== new_frontend_path.view &&
-            frontend_path.id !== new_frontend_path.id) {
-            frontend_path = new_frontend_path;
-            render();
-        }
-    }, 100); // apparently used by Google
-// http://stackoverflow.com/questions/2161906/handle-url-anchor-change-event-in-js
+        render();
+
+        window.setInterval(function () {
+            var new_frontend_path = get_frontend_path();
+            if (frontend_path.view !== new_frontend_path.view &&
+                frontend_path.id !== new_frontend_path.id) {
+                frontend_path = new_frontend_path;
+                render();
+            }
+        }, 100); // apparently used by Google
+        // http://stackoverflow.com/questions/2161906/handle-url-anchor-change-event-in-js
+    }, function () {
+        throw new Error("server sync error")
+    });
 
 });
