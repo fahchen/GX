@@ -1,1 +1,1 @@
-json.extract! @day, :id, :description, :created_at, :updated_at
+json.partial! 'days/day', day: @day
