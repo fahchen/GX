@@ -90,7 +90,6 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     var frontend_path = get_frontend_path();
 
     var render = function () {
-
         if (frontend_path.view === 'destinations') {
 
             var destinations_list_json = destinations.map(function (d) {
@@ -100,10 +99,7 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
                 destinations: destinations_list_json
             });
             $('#app-view').html(rendered_template);
-
-            $('#tour-detail').html("");
-        } else {
-
+        } else if (frontend_path.view === 'tours') {
             var tours_list_json = tours
                 .filter(function (tour) {
                     return tour.id === frontend_path.id
@@ -117,12 +113,13 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
             });
             $('#app-view').html(rendered_template);
 
-            var tour_detail_json = tours.models[0].make_detail_json();
+        } else if (frontend_path.view === 'tour') {
+            var tour_detail_json = tours.get(frontend_path.id).make_detail_json();
             compiled_template = Handlebars.compile(tour_details_t);
             rendered_template = compiled_template(tour_detail_json);
-            $('#tour-detail').html(rendered_template);
-
-            $('#destination-list').html("");
+            $('#app-view').html(rendered_template);
+        } else {
+            throw new Error("unknown view '" + frontend_path.view + "'");
         }
     }
 
@@ -134,7 +131,7 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
 
         window.setInterval(function () {
             var new_frontend_path = get_frontend_path();
-            if (frontend_path.view !== new_frontend_path.view &&
+            if (frontend_path.view !== new_frontend_path.view ||
                 frontend_path.id !== new_frontend_path.id) {
                 frontend_path = new_frontend_path;
                 render();
