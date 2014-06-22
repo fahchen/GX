@@ -10,7 +10,8 @@ require.config({
         'domReady': 'bower_components/requirejs-domready/domReady',
         'text': 'vendor/text',
 
-        'models': 'js/models'
+        'models': 'js/models',
+        'handlebar-helpers': 'js/handlebar-helpers'
     },
     packages: [
         {name: 'when', path: 'bower_components/when', main: 'when'}
@@ -27,11 +28,13 @@ require.config({
 });
 
 require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
+          'handlebar-helpers',
           'text!views/destination-list.hbs',
           'text!views/tour-list.hbs',
           'text!views/tour-details.hbs',
           'domReady!'
 ], function (Handlebars, $, models, _, when,
+             handlebar_helpers,
              destination_list_t, tour_list_t, tour_details_t) {
     "use strict";
 
@@ -55,25 +58,9 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     }
 
 
-    Handlebars.registerHelper('list', function(items, options) {
-        var out = "<ul>";
-        for(var i=0, l=items.length; i<l; i++) {
-            _.extend(items[i], {num: i + 1});
-            out = out + "<li>" + options.fn(items[i]) + "</li>";
-        }
-        return out + "</ul>";
-    });
+    Handlebars.registerHelper('list', handlebar_helpers.list);
 
-    Handlebars.registerHelper('tourlist', function(items, options) {
-        var out = "";
-        for(var i=0, l=items.length; i<l; i++) {
-            out = [out,
-                   '<div class="tour-list-item">',
-                   options.fn(items[i]),
-                   '</div>'].join('');
-        }
-        return out;
-    });
+    Handlebars.registerHelper('tourlist', handlebar_helpers.tourlist);
 
     var compiled_template;
     var rendered_template;
