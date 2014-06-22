@@ -66,15 +66,31 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
     var rendered_template;
 
     function get_frontend_path() {
-        return window.location.href.split('#')[1];
+        var after_hash_tag = window.location.href.split('#')[1];
+        var split_path, view_id;
+        if (after_hash_tag === undefined || after_hash_tag == '') {
+            return {
+                view: 'destinations',
+                id: undefined
+            };
+        }
+        split_path = after_hash_tag.split('/');
+        if (split_path[1] === undefined || split_path[1] === '') {
+            view_id = undefined;
+        } else {
+            view_id = parseInt(split_path[1]);
+        }
+        return {
+            view: split_path[0],
+            id: view_id
+        };
     }
 
     var frontend_path = get_frontend_path();
 
     var render = function () {
 
-        if (frontend_path === undefined || frontend_path == '') {
-
+        if (frontend_path.view === 'destinations') {
             get_destinations().then(function () {
                 var destinations_list_json = destinations.map(function (d) {
                     return d.make_list_json(); });
