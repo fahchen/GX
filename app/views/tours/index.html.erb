@@ -5,6 +5,7 @@
     <tr>
       <th>Destination</th>
       <th>Name</th>
+      <th>Price</th>
       <th>Hometown</th>
       <th>Introduction</th>
       <th>Image</th>
@@ -17,6 +18,7 @@
       <tr>
         <td><%= tour.destination.try(:name) %></td>
         <td><%= tour.name %></td>
+        <td><%= tour.price %></td>
         <td><%= tour.hometown %></td>
         <td><%= tour.introduction %></td>
         <td><%= image_tag tour.image %></td>

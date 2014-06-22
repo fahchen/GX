@@ -1,4 +1,4 @@
-json.extract! tour, :id, :name, :hometown, :introduction, :created_at, :updated_at, :destination_id
+json.extract! tour, :id, :name, :hometown, :introduction, :created_at, :updated_at, :destination_id, :price
 json.image_url tour.image.url
 
 json.destination do

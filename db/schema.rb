@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622032921) do
+ActiveRecord::Schema.define(version: 20140622035432) do
 
   create_table "days", force: true do |t|
     t.text     "description"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140622032921) do
     t.integer  "destination_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "price"
   end
 
 end
