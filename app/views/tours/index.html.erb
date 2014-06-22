@@ -19,7 +19,7 @@
         <td><%= tour.name %></td>
         <td><%= tour.hometown %></td>
         <td><%= tour.introduction %></td>
-        <td><%= tour.image %></td>
+        <td><%= image_tag tour.image %></td>
         <td><%= link_to 'Show', tour %></td>
         <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
         <td><%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -13,6 +13,8 @@ gem 'jquery-turbolinks'
 gem 'font-awesome-rails'
 gem 'nprogress-rails'
 
+gem 'carrierwave'
+
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'spring',        group: :development
