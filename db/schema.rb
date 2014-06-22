@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622050648) do
+ActiveRecord::Schema.define(version: 20140622052339) do
 
   create_table "days", force: true do |t|
     t.text     "description"
@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(version: 20140622050648) do
 
   create_table "tours", force: true do |t|
     t.string   "name"
-    t.string   "hometown"
-    t.text     "introduction"
     t.string   "image"
     t.integer  "destination_id"
     t.datetime "created_at"
