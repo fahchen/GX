@@ -1,3 +1,1 @@
-json.array!(@destinations) do |destination|
-  json.extract! destination, :id, :name
-end
+json.array! @destinations, partial: 'destinations/destination', as: :destination
