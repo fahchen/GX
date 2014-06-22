@@ -74,7 +74,8 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
                 id: undefined
             };
         }
-        split_path = after_hash_tag.split('/');
+        // slice() removes preceeding '/'
+        split_path = after_hash_tag.slice(1).split('/');
         if (split_path[1] === undefined || split_path[1] === '') {
             view_id = undefined;
         } else {
@@ -98,19 +99,23 @@ require([ 'handlebars', 'jquery', 'models', 'lodash', 'when',
             rendered_template = compiled_template({
                 destinations: destinations_list_json
             });
-            $('#destination-list').html(rendered_template);
+            $('#app-view').html(rendered_template);
 
-            $('#tour-list').html("");
             $('#tour-detail').html("");
         } else {
 
-            var tours_list_json = tours.map(function (tour) {
-                return tour.make_list_json(); });
+            var tours_list_json = tours
+                .filter(function (tour) {
+                    return tour.id === frontend_path.id
+                })
+                .map(function (tour) {
+                    return tour.make_list_json();
+                });
             compiled_template = Handlebars.compile(tour_list_t);
             rendered_template = compiled_template({
                 tours: tours_list_json
             });
-            $('#tour-list').html(rendered_template);
+            $('#app-view').html(rendered_template);
 
             var tour_detail_json = tours.models[0].make_detail_json();
             compiled_template = Handlebars.compile(tour_details_t);
